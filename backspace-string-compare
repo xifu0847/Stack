@@ -1,0 +1,69 @@
+#include <iostream>
+#include <stack>
+#include <queue>
+
+using namespace std;
+
+class Solution {
+public:
+    bool backspaceCompare(string S, string T) {
+        stack<char> st1;
+        stack<char> st2;
+        
+        for(int i = 0; i<S.size(); i++){
+            /*
+            if(S[i] == '#' && st1.size()){ //while 1;
+                st1.pop();
+            }
+            else if(s[i] != '#'){
+                st1.push(s[i]);
+            }
+            */
+            if(S[i] != '#'){
+                st1.push(S[i]);
+            }
+            else if(st1.size() == 0){
+                continue;
+            }
+            else{ //but if the first is #, how to do that?
+                st1.pop();
+            }  
+        }
+        
+        for(int i =0; i< T.size(); i++){
+            if(T[i] != '#'){
+                st2.push(T[i]); 
+            }
+            else if(st2.size() == 0){
+                continue;
+            }
+            else{ //but if the first is #, how to do that?
+                st2.pop();
+            }  
+        }
+        
+        if(st1.size() != st2.size()){
+            return false;
+        }
+        else{
+            while(st1.size() > 0){
+                if(st1.top() == st2.top()){
+                    st1.pop();
+                    st2.pop();
+                }
+                else{
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+};
+
+
+int main(){
+    Solution so;
+    string S = "ab#c";
+    string T = "ad#c";
+    cout << so.backspaceCompare(S, T) << endl;
+}
