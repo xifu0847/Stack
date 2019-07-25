@@ -1,0 +1,56 @@
+class Solution {
+public:
+    bool isValid(string s) {
+        stack<char> st;
+        int size = s.size();
+        if(size % 2 != 0){
+            return false;
+        }
+        else if(s[0] == '}' || s[0] ==']'|| s[0] == ')'){
+            return false;
+        }
+        else{
+            for(int i=0; i<s.size(); i++){
+                st.push(s[i]);
+                if (st.top() == '{'){
+                    
+                    if(s[i+1] == '}'){
+                        st.pop();
+                        
+                    }
+                    else
+                    continue;
+                }
+                else if (st.top() == '['){
+                    if(s[i+1] == ']'){
+                        st.pop();
+                        
+                    }
+                    else
+                    continue;
+                }
+                else if (st.top() == '('){
+                    if(s[i+1] == ')'){
+                        st.pop();
+                        
+                    }
+                    else
+                    continue;
+                }
+                else
+                    return false;
+            }
+            
+        }
+        if(st.size() == 0){
+            return true;
+        }
+        else
+            return false;
+    }   
+};
+
+/*
+1 must be even number
+2.}】）进入和top比较，一定报错
+*/
